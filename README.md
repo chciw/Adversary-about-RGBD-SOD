@@ -1,7 +1,122 @@
-# Adver-on-RGBD-SOD
-a benchmark about adversarial attack&amp;defense on SOD
-## Model
-PDNet ...
-## Attack
+# Adversary-about-RGBD-SOD
 
-## Defense
+a benchmark about adversarial attack&defense on RGBD Saliency Object Detection
+
+## :peach:Attack
+
+### 2021
+
+|TITLE|PUBLISHER|GENERATION| |
+|---|---|---|---|
+|Adversarial Attack Against Deep Saliency Models Powered by Non-Redundant Priors|TIP|punish feature activations corresponding to the salient regions;derectional gradient estimation|partially white-box & black-box|
+| | | | |
+
+
+
+### 2020
+
+|TITLE|PUBLISHER|GENERATION| |
+|---|---|---|---|
+|Towards Large yet Imperceptible Adversarial Image Perturbations with Perceptual Color Distance<br />[https://github.com/ZhengyuZhao/PerC-Adversarial](https://github.com/ZhengyuZhao/PerC-Adversarial)|CVPR|PerC-C&W、PerC-AL: replace original penalty with new distance metric|white-box|
+|ColorFool: Semantic Adversarial Colorization<br />https:[//github.com/smartcameras/ColorFool](//github.com/smartcameras/ColorFool)|CVPR|modify colors as unrestricted perturbations|black-box|
+|Polishing Decision-Based Adversarial Noise With a Customized Sampling|CVPR|CAB: boundary attack with customized sampling|black-box|
+|Physically Realizable Adversarial Examples for LiDAR Object Detection|CVPR|3D| |
+|Indirect Local Attacks for Context-Aware Semantic Segmentation Networks|ECCV|adaptive local attacks using structured sparsity in loss|white-box|
+|**ROSA: Robust Salient Object Detection<br />Against Adversarial Attacks** |**IEEE Transactions on Cybernetics** |**firstly mount successful attack on SOD (refer to DAG)** |**white-box** |
+
+
+
+### 2019
+
+|TITLE|PUBLISHER|GENERATION| |
+|---|---|---|---|
+|Sparse and imperceivable adversarial attacks<br />[https://github.com/fra31/](https://github.com/fra31/)sparse-imperceivable-attacks|ICCV|restrict region of which pixels are changed and minimize l0-distance to clean img|black-box|
+|Subspace attack: Exploiting promising subspaces for query-efficient black-box attacks<br />[https://github.com/ZiangYan/subspace-attack.pytorch](https://github.com/ZiangYan/subspace-attack.pytorch)|NIPS|exploit gradient of a few reference models to reduce the query<br />complexity|black-box|
+|Prior convictions: Black-box adversarial attacks with bandits and priors|ICLR|a bandit optimization-based algorithm using any prior|black-box|
+|**MLAttack: Fooling Semantic Segmentation Networks by Multi-layer Attacks** |**German Conference on Pattern Recognition** |**gradient combination to addtionally match inter. layer response of source and  target img** |**white-box** |
+
+
+
+### 2018
+
+|TITLE|PUBLISHER|GENERATION| |
+|---|---|---|---|
+|Art of Singular Vectors and Universal Adversarial Perturbations|CVPR|compute vectors of Jacobian matrices of hidden layers|white-box|
+|Boosting Adversarial Attacks with Momentum|CVPR|more transferable adversarial examples|black-box|
+|Decision-based adversarial attacks: Reliable attacks against black-box machine learning models<br />[https://github.com/bethgelab/foolbox](https://github.com/bethgelab/foolbox)|ICLR|Boundary Attack:follow decision boundary,start with big perturbation and reduce it|black-box|
+|Towards imperceptible and robust adversarial example attacks against neural networks|AAAI|new distance metric for higher imperceptibility and maximize prob gap for higher attack robustness in physical  world|white-box|
+
+
+
+### 2017
+
+|TITLE|PUBLISHER|GENERATION| |
+|---|---|---|---|
+|Universal Adversarial Perturbations<br />[https://github.com/](https://github.com/)LTS4/universal|CVPR|iteratly aggregate min perturbation that send data to decision boundary|black-box|
+|**Adversarial Examples for Semantic Segmentation and Object Detection** |**ICCV** |**DAG**  **using gradient** |**white-box** |
+|Universal Adversarial Perturbations Against Semantic Image Segmentation|ICCV|customized loss gradient averaged over the entire training data|white-box|
+|Delving into transferable adversarial examples and black-box attacks|ICLR|attack ensemble of models for better transferability|black-box|
+
+
+
+## :peach:Defense
+
+### 2021
+
+|TITLE|PUBLISHER|FOCUS|
+|---|---|---|
+|Beating Attackers At Their Own Games:Adversarial Example<br />Detection Using Adversarial Gradient Directions|AAAI|train classifier exploit AGD and neighbor prototype for detection|
+|Improving Adversarial Robustness via Probabilistically Compact Loss with Logit Constraints<br />[https://github.com/xinli0928/PC-LC](https://github.com/xinli0928/PC-LC)|AAAI|enlarge the probability gaps between true class and false classes and  prevent the gaps from being melted by a small perturbation|
+|**Single-Step Adversarial Training for Semantic Segmentation** |**preprint** |**improve single-step Adv.Train by choosing an appropriate step size** |
+|Improving Adversarial Robustness via Channel-wise Activation Suppressing<br />[https://github.com/bymavis/CAS_ICLR2021](https://github.com/bymavis/CAS_ICLR2021)|ICLR|add module to suppress redundant adversaarial  activation for Adv.Train|
+
+
+
+### 2020
+
+|TITLE|PUBLISHER|FOCUS|
+|---|---|---|
+|One Man's Trash Is Another Man's Treasure: Resisting Adversarial Examples by Adversarial Examples|CVPR|a fixed external model for Adv.Train|
+|Achieving Robustness in the Wild via Adversarial Mixing With Disentangled Representations|CVPR          |real-world perturbation used for Adv.Train  |
+|Single-Step Adversarial Training With Dropout Scheduling|CVPR|add dropout to single-step Adv.Train|
+|Adversarial Vertex Mixup: Toward Better Adversarially Robust Generalization|CVPR|train&test set accuracy gap for Adv.Train|
+|**On the Robustness of Semantic Segmentation Models to Adversarial Attacks** |**TPAMI** |**first rigorous evaluation**  |
+|Dynamic Divide-and-Conquer Adversarial Training for Robust Semantic Segmentation|preprint|add branches to deal with pixels with diverse properties towards adv. perturbation for Adv. Train|
+|Indirect Local Attacks for Context-Aware Semantic Segmentation Networks|ECCV|train model  using Mahalanobis distance and inter. feature to  detect|
+|**ROSA: Robust Salient Object Detection Against Adversarial Attacks** |**IEEE Transactions on Cybernetics** |**introduce new generic noise to destroy adv. perturbations, learn to predict with introduced noise** |
+
+
+
+### 2019
+
+|TITLE|PUBLISHER|FOCUS|
+|---|---|---|
+|Sparse and imperceivable adversarial attacks
+<br />https://github.com/fra31/sparse-imperceivable-attacks|ICCV|sparse and imperceivable attack setting for Adv.Train|
+|Feature Denoising for Improving Adversarial Robustness<br />[https://github.com/facebookresearch/](https://github.com/facebookresearch/)ImageNet-Adversarial-Training|CVPR|translate denoise operations to new network block|
+|Adversarial Defense by Restricting the Hidden Space of Deep Neural Networks|ICCV|customize loss to learn distinct and distant decision regions for each class|
+
+
+
+### 2018
+
+|TITLE|PUBLISHER|FOCUS|
+|---|---|---|
+|Defense Against Universal Adversarial Perturbations|CVPR|add layer to rectify perturbation|
+|Ensemble Adversarial Training: Attacks and Defenses|ICLR|augment training data with perturbation transferred from other models for Adv.Train|
+|**Towards deep learning models resistant to adversarial attacks** |**ICLR** |** broad and unifying view based**  **robust optimization**  **about robust model** |
+|Provable defenses against adversarial examples via the convex outer adversarial polytope<br />[http://github.com/](http://github.com/)locuslab/convex_adversarial|ICML|approximation of the set of activations reachable throuth perturbation to Detection|
+
+
+
+### 2017
+
+|TITLE|PUBLISHER|FOCUS|
+|---|---|---|
+|Adversary Resistant Deep Neural Networks with an Application to Malware Detection|SIGKDD|add a layer to mask pixels randomly |
+|On detecting adversarial perturbations|ICLR|add a subnetwork for Detection|
+|Adversarial machine learning at scale|ICLR|large dataset for Adv.Train|
+
+
+
+
