@@ -3,12 +3,15 @@
 a benchmark about adversarial attack&defense on RGBD Saliency Object Detection
 
 ## :peach:Attack
-
+近3年
+减少噪声冗余（关注图像特定区域）、新噪声（更强而仍然不可感知）<br>
+黑盒：减少查询次数、降低噪声强度<br>
+白盒：利用中间层加强攻击<br>
 ### 2021
 
 |TITLE|PUBLISHER|GENERATION| |
 |---|---|---|---|
-|Adversarial Attack Against Deep Saliency Models Powered by Non-Redundant Priors|TIP|punish feature activations corresponding to the salient regions;derectional gradient estimation|partially white-box & black-box|
+|Adversarial Attack Against Deep Saliency Models Powered by Non-Redundant Priors|TIP|punish feature activations corresponding to the salient regions;directional gradient estimation|partially white-box & black-box|
 | | | | |
 
 
@@ -32,7 +35,7 @@ a benchmark about adversarial attack&defense on RGBD Saliency Object Detection
 |---|---|---|---|
 |Sparse and imperceivable adversarial attacks<br />[https://github.com/fra31/sparse-imperceivable-attacks](https://github.com/fra31/sparse-imperceivable-attacks)|ICCV|restrict region of which pixels are changed and minimize l0-distance to clean img|black-box|
 |Subspace attack: Exploiting promising subspaces for query-efficient black-box attacks<br />[https://github.com/ZiangYan/subspace-attack.pytorch](https://github.com/ZiangYan/subspace-attack.pytorch)|NIPS|exploit gradient of a few reference models to reduce the query<br />complexity|black-box|
-|Prior convictions: Black-box adversarial attacks with bandits and priors|ICLR|a bandit optimization-based algorithm using any prior|black-box|
+|Prior convictions: Black-box adversarial attacks with bandits and priors<br>[https://git.io/blackbox-bandits](https://git.io/blackbox-bandits)|ICLR|a bandit optimization-based algorithm using any prior to improve query|black-box|
 |**MLAttack: Fooling Semantic Segmentation Networks by Multi-layer Attacks** |**German Conference on Pattern Recognition** |**gradient combination to addtionally match inter. layer response of source and  target img** |**white-box** |
 
 
