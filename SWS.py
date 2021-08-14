@@ -1,3 +1,8 @@
+'''
+rosa preprocess before feeding into model 
+
+this script transforms a Imgfolder to SWSfolder
+'''
 import random
 import cv2
 import os
