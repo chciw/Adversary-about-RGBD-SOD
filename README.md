@@ -3,10 +3,8 @@
 a benchmark about adversarial attack&defense on RGBD Saliency Object Detection
 
 ## :peach:Attack
-近3年
-减少噪声冗余（关注图像特定区域）、新噪声（更强而仍然不可感知）<br>
-黑盒：减少查询次数、降低噪声强度<br>
-白盒：利用中间层加强攻击<br>
+最近3年，关注点有 **减少噪声冗余（关注图像特定区域）和新噪声（更强而仍然不可感知）**<br>
+特别的，对于黑盒，还有 **减少查询次数** ;对于白盒，还有 **利用中间层加强攻击**<br>
 ### 2021
 
 |TITLE|PUBLISHER|GENERATION| |
@@ -25,7 +23,7 @@ a benchmark about adversarial attack&defense on RGBD Saliency Object Detection
 |Polishing Decision-Based Adversarial Noise With a Customized Sampling|CVPR|CAB: boundary attack with customized sampling|black-box|
 |Physically Realizable Adversarial Examples for LiDAR Object Detection|CVPR|3D| |
 |Indirect Local Attacks for Context-Aware Semantic Segmentation Networks|ECCV|adaptive local attacks using structured sparsity in loss|white-box|
-|**ROSA: Robust Salient Object Detection<br />Against Adversarial Attacks** |**IEEE Transactions on Cybernetics** |**firstly mount successful attack on SOD (refer to DAG)** |**white-box** |
+|**ROSA: Robust Salient Object Detection Against Adversarial Attacks<br>[https://github.com/lhaof/ROSA-Robust-Salient-Object-Detection-Against-Adversarial-Attacks](https://github.com/lhaof/ROSA-Robust-Salient-Object-Detection-Against-Adversarial-Attacks)** |**IEEE Transactions on Cybernetics** |**firstly mount successful attack on SOD (refer to DAG)** |**white-box** |
 
 
 
@@ -33,7 +31,7 @@ a benchmark about adversarial attack&defense on RGBD Saliency Object Detection
 
 |TITLE|PUBLISHER|GENERATION| |
 |---|---|---|---|
-|Sparse and imperceivable adversarial attacks<br />[https://github.com/fra31/sparse-imperceivable-attacks](https://github.com/fra31/sparse-imperceivable-attacks)|ICCV|restrict region of which pixels are changed and minimize l0-distance to clean img|black-box|
+|Sparse and imperceivable adversarial attacks<br>[https://github.com/fra31/sparse-imperceivable-attacks](https://github.com/fra31/sparse-imperceivable-attacks)|ICCV|restrict region of which pixels are changed and minimize l0-distance to clean img|black-box|
 |Subspace attack: Exploiting promising subspaces for query-efficient black-box attacks<br />[https://github.com/ZiangYan/subspace-attack.pytorch](https://github.com/ZiangYan/subspace-attack.pytorch)|NIPS|exploit gradient of a few reference models to reduce the query<br />complexity|black-box|
 |Prior convictions: Black-box adversarial attacks with bandits and priors<br>[https://git.io/blackbox-bandits](https://git.io/blackbox-bandits)|ICLR|a bandit optimization-based algorithm using any prior to improve query|black-box|
 |**MLAttack: Fooling Semantic Segmentation Networks by Multi-layer Attacks** |**German Conference on Pattern Recognition** |**gradient combination to addtionally match inter. layer response of source and  target img** |**white-box** |
@@ -63,7 +61,9 @@ a benchmark about adversarial attack&defense on RGBD Saliency Object Detection
 
 
 ## :peach:Defense
-
+最近3年，通过**新损失函数、新网络块、主动引入新噪声、对抗训练和检测**提高模型鲁棒性<br>
+对于对抗训练，关注**减少训练代价、提高泛化能力**，还有**添加分支以pixel-wise地利用对抗样本**<br>
+特别的，提高单步训练鲁棒性，从**解决过拟合**和**改进对抗样本**两方面进行<br>
 ### 2021
 
 |TITLE|PUBLISHER|FOCUS|
@@ -71,7 +71,7 @@ a benchmark about adversarial attack&defense on RGBD Saliency Object Detection
 |Beating Attackers At Their Own Games:Adversarial Example<br />Detection Using Adversarial Gradient Directions|AAAI|train classifier exploit AGD and neighbor prototype for detection|
 |Improving Adversarial Robustness via Probabilistically Compact Loss with Logit Constraints<br />[https://github.com/xinli0928/PC-LC](https://github.com/xinli0928/PC-LC)|AAAI|enlarge the probability gaps between true class and false classes and  prevent the gaps from being melted by a small perturbation|
 |**Single-Step Adversarial Training for Semantic Segmentation** |**preprint** |**improve single-step Adv.Train by choosing an appropriate step size** |
-|Improving Adversarial Robustness via Channel-wise Activation Suppressing<br />[https://github.com/bymavis/CAS_ICLR2021](https://github.com/bymavis/CAS_ICLR2021)|ICLR|add module to suppress redundant adversaarial  activation for Adv.Train|
+|Improving Adversarial Robustness via Channel-wise Activation Suppressing<br />[https://github.com/bymavis/CAS_ICLR2021](https://github.com/bymavis/CAS_ICLR2021)|ICLR|add module to suppress redundant adversarial activation for Adv.Train|
 
 
 
@@ -79,14 +79,14 @@ a benchmark about adversarial attack&defense on RGBD Saliency Object Detection
 
 |TITLE|PUBLISHER|FOCUS|
 |---|---|---|
-|One Man's Trash Is Another Man's Treasure: Resisting Adversarial Examples by Adversarial Examples|CVPR|a fixed external model for Adv.Train|
+|One Man's Trash Is Another Man's Treasure: Resisting Adversarial Examples by Adversarial Examples|CVPR|finding an adversarial example on a pretrained external model for Adv.Train|
 |Achieving Robustness in the Wild via Adversarial Mixing With Disentangled Representations|CVPR          |real-world perturbation used for Adv.Train  |
 |Single-Step Adversarial Training With Dropout Scheduling|CVPR|add dropout to single-step Adv.Train|
 |Adversarial Vertex Mixup: Toward Better Adversarially Robust Generalization|CVPR|train&test set accuracy gap for Adv.Train|
 |**On the Robustness of Semantic Segmentation Models to Adversarial Attacks** |**TPAMI** |**first rigorous evaluation**  |
 |Dynamic Divide-and-Conquer Adversarial Training for Robust Semantic Segmentation|preprint|add branches to deal with pixels with diverse properties towards adv. perturbation for Adv. Train|
 |Indirect Local Attacks for Context-Aware Semantic Segmentation Networks|ECCV|train model  using Mahalanobis distance and inter. feature to  detect|
-|**ROSA: Robust Salient Object Detection Against Adversarial Attacks** |**IEEE Transactions on Cybernetics** |**introduce new generic noise to destroy adv. perturbations, learn to predict with introduced noise** |
+|**ROSA: Robust Salient Object Detection Against Adversarial Attacks<br>[https://github.com/lhaof/ROSA-Robust-Salient-Object-Detection-Against-Adversarial-Attacks](https://github.com/lhaof/ROSA-Robust-Salient-Object-Detection-Against-Adversarial-Attacks)** |**IEEE Transactions on Cybernetics** |**introduce new generic noise to destroy adv. perturbations, learn to predict with introduced noise** |
 
 
 
@@ -94,8 +94,6 @@ a benchmark about adversarial attack&defense on RGBD Saliency Object Detection
 
 |TITLE|PUBLISHER|FOCUS|
 |---|---|---|
-|Sparse and imperceivable adversarial attacks
-<br />https://github.com/fra31/sparse-imperceivable-attacks|ICCV|sparse and imperceivable attack setting for Adv.Train|
 |Feature Denoising for Improving Adversarial Robustness<br />[https://github.com/facebookresearch/ImageNet-Adversarial-Training](https://github.com/facebookresearch/ImageNet-Adversarial-Training)|CVPR|translate denoise operations to new network block|
 |Adversarial Defense by Restricting the Hidden Space of Deep Neural Networks|ICCV|customize loss to learn distinct and distant decision regions for each class|
 
@@ -107,7 +105,7 @@ a benchmark about adversarial attack&defense on RGBD Saliency Object Detection
 |---|---|---|
 |Defense Against Universal Adversarial Perturbations|CVPR|add layer to rectify perturbation|
 |Ensemble Adversarial Training: Attacks and Defenses|ICLR|augment training data with perturbation transferred from other models for Adv.Train|
-|**Towards deep learning models resistant to adversarial attacks** |**ICLR** |** broad and unifying view based**  **robust optimization**  **about robust model** |
+|**Towards deep learning models resistant to adversarial attacks** |**ICLR** |**broad and unifying view based robust optimization about robust model** |
 |Provable defenses against adversarial examples via the convex outer adversarial polytope<br />[http://github.com/locuslab/convex_adversarial](http://github.com/locuslab/convex_adversarial)|ICML|approximation of the set of activations reachable throuth perturbation to Detection|
 
 
