@@ -1,5 +1,4 @@
 import os
-# os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 import tensorflow as tf
 import keras
 from keras import backend as K
@@ -8,12 +7,7 @@ from keras.callbacks import ModelCheckpoint, LearningRateScheduler
 from model import *
 
 def load():
-    # f = h5py.File('data_nju2000_224x224.h5','r')
     f = h5py.File('./train_data/nju2000_train.h5', 'r')
-    # loaded_obj = pickle.load(f)
-    # f.close()
-    # X, y = loaded_obj
-    # data labels
     f.keys()
     x = f['x'][:]
     y = f['y'][:]
