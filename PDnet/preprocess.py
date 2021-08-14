@@ -5,32 +5,24 @@ import h5py
 import operator
 import random
 
-# VAL_PATH = './dataset/NLPR/train/Img/'
-# VALDEEP_PATH = './dataset/NLPR/train/deep/'
-# VALMASK_PATH='./dataset/NLPR/train/GT/'
-
-# VAL_PATH = 'D:/hh/deeplearning/Database/IRFF_dataset/RGBD_for_test/STERE/RGB/'
-# VALDEEP_PATH = 'D:/hh/deeplearning/Database/IRFF_dataset/RGBD_for_test/STERE/depth/'
-# VALMASK_PATH='D:/hh/deeplearning/Database/IRFF_dataset/RGBD_for_test/STERE/GT/'
-#
 # PIC_PATH2 = 'D:/hh/deeplearning/Database/IRFF_dataset/RGBD_for_train/RGB/'
 # SALDEEP_PATH2 = 'D:/hh/deeplearning/Database/IRFF_dataset/RGBD_for_train/depth/'
 # SALMASK_PATH2='D:/hh/deeplearning/Database/IRFF_dataset/RGBD_for_train/GT/'
 # test
-VAL_PATH = '/home/jackice/PycharmProjects/pythonProject1/dataset/SSD100/RGB/'
-VALDEEP_PATH = '/home/jackice/PycharmProjects/pythonProject1/dataset/SSD100/depth/'
-VALMASK_PATH='/home/jackice/PycharmProjects/pythonProject1/dataset/SSD100/GT/'
+VAL_PATH = '/home/jackice/PycharmProjects/pythonProject1/dataset/NLPR/test/Img/'
+VALDEEP_PATH = '/home/jackice/PycharmProjects/pythonProject1/dataset/NLPR/test/deep/'
+VALMASK_PATH='/home/jackice/PycharmProjects/pythonProject1/dataset/NLPR/test/GT/'
+# train
+PIC_PATH2 = '/home/jackice/PycharmProjects/pythonProject1/dataset/NLPR/train/Img/'
+SALDEEP_PATH2 = '/home/jackice/PycharmProjects/pythonProject1/dataset/NLPR/train/deep/'
+SALMASK_PATH2='/home/jackice/PycharmProjects/pythonProject1/dataset/NLPR/train/GT/'
 
-# PIC_PATH2 = '/home/jackice/PycharmProjects/pythonProject1/dataset/NLPR/train/Img/'
-# SALDEEP_PATH2 = '/home/jackice/PycharmProjects/pythonProject1/dataset/NLPR/train/deep/'
-# SALMASK_PATH2='/home/jackice/PycharmProjects/pythonProject1/dataset/NLPR/train/GT/'
-
-# datalist = open(PIC_PATH2+'list.txt','r')
-# namelist=[l.strip('\n') for l in datalist.readlines()]
-# sallist= open(SALMASK_PATH2+'list.txt','r')
-# sallist=[l.strip('\n') for l in sallist.readlines()]
-# deplist= open(SALDEEP_PATH2+'list.txt','r')
-# deplist=[l.strip('\n') for l in deplist.readlines()]
+datalist = open(PIC_PATH2+'list.txt','r')
+namelist=[l.strip('\n') for l in datalist.readlines()]
+sallist= open(SALMASK_PATH2+'list.txt','r')
+sallist=[l.strip('\n') for l in sallist.readlines()]
+deplist= open(SALDEEP_PATH2+'list.txt','r')
+deplist=[l.strip('\n') for l in deplist.readlines()]
 
 val_datalist = open(VAL_PATH+'list.txt','r')
 val_namelist=[l.strip('\n') for l in val_datalist.readlines()]
@@ -45,15 +37,15 @@ input_h=224
 input_w=224
 output_h=224
 output_w=224
-# NumSample=len(namelist)
+NumSample=len(namelist)
 val_num = len(val_namelist)
 
-# X1 = np.zeros((NumSample,input_h, input_w,3), dtype='float32')
-# Y1 = np.zeros((NumSample,output_h,output_w,1), dtype='uint8')
-# Z1=np.zeros((NumSample,output_h,output_w,1), dtype='uint8')
-# X2 = np.zeros((NumSample,input_h, input_w,3), dtype='float32')
-# NumAll = NumSample+val_num
-# print (NumAll)
+X1 = np.zeros((NumSample,input_h, input_w,3), dtype='float32')
+Y1 = np.zeros((NumSample,output_h,output_w,1), dtype='uint8')
+Z1=np.zeros((NumSample,output_h,output_w,1), dtype='uint8')
+X2 = np.zeros((NumSample,input_h, input_w,3), dtype='float32')
+NumAll = NumSample+val_num
+print (NumAll)
 print(val_num)
 VAL_X = np.zeros((val_num,input_h, input_w,3), dtype='float32')
 VAL_Y = np.zeros((val_num,output_h,output_w,1), dtype='uint8')
@@ -126,7 +118,7 @@ for i in range(val_num):
 #     #Y1.append(label.reshape(1,48*48))
 #     Y1[i]=label.reshape(output_h,output_w,1)
 
-'''
+
 for i in range(NumSample):
     img =cv2.imread(PIC_PATH2+namelist[i])
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
@@ -158,7 +150,6 @@ for i in range(NumSample):
     img2 = cv2.resize(img2,(input_w,input_h),interpolation=cv2.INTER_CUBIC)
     img2=img2.astype(np.float32)/255.
     X2[i]=img2
-'''
 
 
 # random.seed(1)
@@ -168,15 +159,12 @@ for i in range(NumSample):
 # x , y = X1[list(rand[0:split_at])],Y1[list(rand[0:split_at])]
 # val_x ,val_y = X1[list(rand[split_at:])],Y1[list(rand[split_at:])]
 
-#f = h5py.File('data_ecssd_96x96_T.h5','w') 
-# f = h5py.File('data_merge_224x224x2_T.h5','w')
-f = h5py.File('./train_data/ssd100.h5','w')
-#f = h5py.File('data_msra_192x192x2_T.h5','w')
+f = h5py.File('./train_data/nju2000.h5','w')
 
-# f['x'] = X1
-# f['y'] = Y1
-# f['z'] = Z1
-# f['x2']=X2
+f['x'] = X1
+f['y'] = Y1
+f['z'] = Z1
+f['x2']=X2
 f['x_val'] = VAL_X
 f['y_val'] = VAL_Y
 f['z_val']=VAL_Z
