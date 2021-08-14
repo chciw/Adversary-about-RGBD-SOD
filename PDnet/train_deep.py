@@ -1,5 +1,5 @@
+# a few changes are needed if used for model_rosa
 import os
-#os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 import cv2
 import tensorflow as tf
 import keras
@@ -11,11 +11,6 @@ import numpy as np
 
 def load():
     f = h5py.File('./train_data/merge2.h5','r')
-#    f = h5py.File('./bbs_train_and_val.h5','r')
-    #loaded_obj = pickle.load(f)
-    #f.close()
-    #X, y = loaded_obj
-    #data labels
     f.keys()
     x = f['x'][:]
     y = f['y'][:]
@@ -38,7 +33,6 @@ def deal_score(score):
 img_width,  img_height =  224,224
 
 epochs = 20
-# 内存不够 OOM 则调小batchsize
 batch_size = 8
 
 model = vgg16_deep_fuse_model(img_width,img_height)
@@ -51,7 +45,6 @@ model_checkpoint = ModelCheckpoint('./checkpoints/vgg16_deep_fuse_512.{val_loss:
 train_continue = 1
 if train_continue:
     model.load_weights('./checkpoints/vgg16_deep_fuse_512.0.152.hdf5',by_name=True)
-    # model.load_weights('./vgg161_merge_224x224x2_weight.0.168.hdf5',by_name=True)
 
 mode_lr = keras.callbacks.ReduceLROnPlateau(monitor='val_loss', factor=0.7, patience=1, verbose=1, mode='auto', epsilon=0.0001, cooldown=0, min_lr=0.0001)
 
@@ -59,6 +52,6 @@ mode_lr = keras.callbacks.ReduceLROnPlateau(monitor='val_loss', factor=0.7, pati
 images,masks ,deep1,val_images,val_y,deep2= load()
 
 model.fit([images,deep1],[masks],batch_size=batch_size,epochs=epochs,verbose=1,validation_data=([val_images,deep2],[val_y]),callbacks=[model_checkpoint,mode_lr])
-#model.fit([images,deep1],[masks],batch_size=batch_size,epochs=epochs,verbose=1,validation_data=([val_images,deep2],[val_y]),callbacks=[model_checkpoint,mode_lr])
+#model.fit([images,deep1,biImg],[masks],batch_size=batch_size,epochs=epochs,verbose=1,validation_data=([val_images,deep2,val_biImg],[val_y]),callbacks=[model_checkpoint,mode_lr])
 #model.fit([image,deep],masks,batch_size=batch_size,epochs=epochs,verbose=1,validation_split=0.2,callbacks=[model_checkpoint,mode_lr])
 
