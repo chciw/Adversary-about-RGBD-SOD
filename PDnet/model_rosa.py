@@ -1,3 +1,6 @@
+# for defense_rosa
+# crfasrnn is added
+
 import tensorflow as tf
 import keras
 from keras.preprocessing.image import ImageDataGenerator
