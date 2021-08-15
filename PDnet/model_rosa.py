@@ -1,5 +1,7 @@
-# for defense_rosa
-# crfasrnn is added
+# for defense_rosa,CAR is added
+
+# TODO LIST
+# parameter initialization of CAR according to reference paper,fine-tune,lr of CAR and early stopping.
 
 import tensorflow as tf
 import keras
@@ -408,7 +410,7 @@ def vgg16_deep_fuse_model(img_width, img_height):
     # model.layers[].trainable=True
 
     # rms=keras.optimizers.RMSprop(lr=0.001, rho=0.9, epsilon=1e-06)
-    sgd = keras.optimizers.SGD(lr=8e-9, momentum=0.9, decay=0.0, nesterov=False)  # ,clipvalue=5)
+    sgd = keras.optimizers.SGD(lr=1e-13, momentum=0.9, decay=0.0005, nesterov=False)  # ,clipvalue=5)
     # adam1 = keras.optimizers.Adam(lr=8e-7, beta_1=0.9, beta_2=0.999, epsilon=1e-08)
     adam1 = keras.optimizers.Adam(lr=0.0001, beta_1=0.9, beta_2=0.999, epsilon=1e-08)
 
@@ -418,7 +420,7 @@ def vgg16_deep_fuse_model(img_width, img_height):
     # #optimizer='adam',
     #                   optimizer=adam1)tf.add_n([tf.nn.l2_loss(item) for item in list]) * 0.001
 
-    model.compile(loss='binary_crossentropy',optimizer=adam1)
+    model.compile(loss='binary_crossentropy',optimizer=sgd)
     # model.compile(loss=spatial_loss, optimizer=sgd)
     #     model.compile(optimizer=adam1, loss={'conv2d_9': tf.keras.losses.binary_crossentropy,
     #                                         'lambda_1': tf.keras.losses.mse,
