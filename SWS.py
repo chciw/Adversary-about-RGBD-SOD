@@ -1,6 +1,5 @@
 '''
-rosa preprocess before feeding into model 
-
+for defense_rosa
 this script transforms a Imgfolder to SWSfolder
 '''
 import random
