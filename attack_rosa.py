@@ -29,13 +29,22 @@ for root, dirs, files in os.walk(rootdir+'Img/'):
                 model.load_weights('./checkpoints/vgg16_deep_fuse_512.0.323.hdf5', by_name=True)
 
                 img,gt,deep,img2=getInput(rootdir+'Img/'+filename+'.jpg',rootdir+'GT/'+filename+'.png',rootdir+'deep/'+filename+'.png',img_width,img_height)
+                mean_0=np.mean(img[0,:,:,0])
+                mean_1=np.mean(img[0,:,:,1])
+                mean_2=np.mean(img[0,:,:,2])
+                mean_4=np.mean(deep)
+                img[0,:,:,0]=img[0,:,:,0]-mean_0
+                img[0,:,:,1]=img[0,:,:,1]-mean_1
+                img[0,:,:,2]=img[0,:,:,2]-mean_2
+                deep=deep-mean_4
+                
                 img_pred=model.predict([img,deep]) # (1,480, 640, 1)->B,H,W,C
                 # before = array_to_img(img_pred[0])
                 # before.save(rootdir+'before/'+filename+'.png')
 
                 img_pred=img_pred[0] # 480,640,1
                 target=np.argwhere(img_pred>=0)# 所有位置索引
-                idx=np.argwhere((img_pred>(125/255)))# 显著区域索引
+                idx=np.argwhere((img_pred>(127/255)))# 显著区域索引
                 h=idx[:,0]
                 w=idx[:,1]
                 saliency_map=np.zeros((img_height,img_width,1))
@@ -49,15 +58,6 @@ for root, dirs, files in os.walk(rootdir+'Img/'):
                         model.targets[0], # 输入的标签，是numpy数组
                         K.learning_phase(), # 默认为0，表示test
                     ]
-                mean_0=np.mean(img[0,:,:,0])
-                mean_1=np.mean(img[0,:,:,1])
-                mean_2=np.mean(img[0,:,:,2])
-                mean_4=np.mean(deep)
-                img[0,:,:,0]=img[0,:,:,0]-mean_0
-                img[0,:,:,1]=img[0,:,:,1]-mean_1
-                img[0,:,:,2]=img[0,:,:,2]-mean_2
-                deep=deep-mean_4
-
                 x_rgb=img.copy()
                 x_deep=deep.copy()
 
@@ -65,7 +65,7 @@ for root, dirs, files in os.walk(rootdir+'Img/'):
                 mask = np.zeros((img_height, img_width, 1))
                 itr = 1
                 e = 0.0
-                while itr<MAX_ITER and len(target)!=0 and e<bound:
+                while itr<=MAX_ITER and len(target)!=0 and e<bound:
                         print('iter %d'% itr)
                         itr = itr + 1
                         # 目标像素mask
@@ -106,7 +106,7 @@ for root, dirs, files in os.walk(rootdir+'Img/'):
                         print('inf. norm of r :%f' % e)
 
                         img_pred = model.predict([img, deep])[0]
-                        idx = np.argwhere((img_pred > (125 / 255)))
+                        idx = np.argwhere((img_pred > (127 / 255)))
                         h = idx[:, 0]
                         w = idx[:, 1]
                         new_saliency_map = np.zeros((img_height,img_width,1))
