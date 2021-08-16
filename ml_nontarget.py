@@ -25,8 +25,8 @@ def getG(img,deep):
 
     myloss = myCELoss_final(guide_maps,mask)
     model.compile(loss=myloss, optimizer='SGD')
-
     get_gradients = K.function(inputs=input_tensors, outputs=grads)
+    
     dx = get_gradients([img, deep, np.ones(1), gt, 0])
     d_rgb = dx[0][0]  # 224,224,3
     d_deep = dx[1][0]  # 224,224,1
@@ -75,15 +75,15 @@ for root, dirs, files in os.walk(rootdir+'Data/Img/'):
                 # print('min guide is:%f'%np.min(guide_maps))
 
                 itr=1
-                MAX_ITER=500
+                MAX_ITER=30
                 step_size=0.003
-                bound=255/255
-                while itr<MAX_ITER:
+                bound=20/255
+                while itr<=MAX_ITER:
                     print('iter:%d' % itr )
                     d_rgb,d_deep=getG(img,deep)
 
-                    img=img+step_size*np.sign(d_rgb)
-                    deep=deep+np.sign(d_deep)*step_size
+                    img=img-step_size*np.sign(d_rgb)
+                    deep=deep-np.sign(d_deep)*step_size
                     img[img>1]=1
                     img[img<0]=0
                     deep[deep<0]=0
