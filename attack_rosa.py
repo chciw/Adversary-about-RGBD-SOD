@@ -44,7 +44,7 @@ for root, dirs, files in os.walk(rootdir+'Img/'):
 
                 img_pred=img_pred[0] # 480,640,1
                 target=np.argwhere(img_pred>=0)# 所有位置索引
-                idx=np.argwhere((img_pred>0.5))# 显著区域索引
+                idx=np.argwhere((img_pred>=0.5))# 显著区域索引
                 h=idx[:,0]
                 w=idx[:,1]
                 saliency_map=np.zeros((img_height,img_width,1))
@@ -106,7 +106,7 @@ for root, dirs, files in os.walk(rootdir+'Img/'):
                         print('inf. norm of r :%f' % e)
 
                         img_pred = model.predict([img, deep])[0]
-                        idx = np.argwhere((img_pred > 0.5))
+                        idx = np.argwhere((img_pred >= 0.5))
                         h = idx[:, 0]
                         w = idx[:, 1]
                         new_saliency_map = np.zeros((img_height,img_width,1))
