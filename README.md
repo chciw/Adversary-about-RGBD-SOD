@@ -2,9 +2,18 @@
 
 a benchmark about adversarial attack&defense on RGBD Saliency Object Detection
 
-## :peach:Attack
+## Attack
+ml,rosa<br>
+二者的区别在于，ml直接构造目标预测，优化目标预测和实际预测的距离,在每一步获取梯度;rosa在每一步用(1-实际概率)对应的梯度-(实际概率)对应梯度。<br>
+他们都考虑了像素限制，即已经成功修改预测的像素不参与下一步迭代。
+
+## Defense
+rosa,...
+
+## :peach:Papers about Attack
 最近3年，关注点有 **减少噪声冗余（关注图像特定区域）和新噪声（更强而仍然不可感知）**<br>
 特别的，对于黑盒，还有 **减少查询次数** ;对于白盒，还有 **利用中间层加强攻击**<br>
+
 ### 2021
 
 |TITLE|PUBLISHER|GENERATION| |
@@ -60,10 +69,11 @@ a benchmark about adversarial attack&defense on RGBD Saliency Object Detection
 
 
 
-## :peach:Defense
+## :peach:Papers about Defense
 最近3年，通过**新损失函数、新网络块、主动引入新噪声、对抗训练和检测**提高模型鲁棒性<br>
 对于对抗训练，关注**减少训练代价、提高泛化能力**，还有**添加分支以pixel-wise地利用对抗样本**<br>
 特别的，提高单步训练鲁棒性，从**解决过拟合**和**改进对抗样本**两方面进行<br>
+
 ### 2021
 
 |TITLE|PUBLISHER|FOCUS|
@@ -117,7 +127,3 @@ a benchmark about adversarial attack&defense on RGBD Saliency Object Detection
 |Adversary Resistant Deep Neural Networks with an Application to Malware Detection|SIGKDD|add a layer to mask pixels randomly |
 |On detecting adversarial perturbations|ICLR|add a subnetwork for Detection|
 |Adversarial machine learning at scale|ICLR|large dataset for Adv.Train|
-
-
-
-
