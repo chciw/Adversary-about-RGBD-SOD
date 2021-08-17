@@ -12,15 +12,15 @@ rosa,...
 
 ## :peach:Papers about Attack
 最近3年，关注点有 **减少噪声冗余（关注图像特定区域）和新噪声（更强而仍然不可感知）**<br>
-特别的，对于黑盒，还有 **减少查询次数** ;对于白盒，还有 **利用中间层加强攻击**<br>
+特别的，对于黑盒，还有 **减少查询次数、提高迁移能力** ;对于白盒，还有 **利用中间层加强攻击**<br>
 
 ### 2021
 
 |TITLE|PUBLISHER|GENERATION| |
 |---|---|---|---|
 |Adversarial Attack Against Deep Saliency Models Powered by Non-Redundant Priors|TIP|punish feature activations corresponding to the salient regions;directional gradient estimation|partially white-box & black-box|
+|Enhancing the transferability of adversarial attacks through variance tuning<br>[https://github.com/JHL-HUST/VT](https://github.com/JHL-HUST/VT)|CVPR|consider the gradient variance of the previous iteration to tune the current gradient to enhance iterative gradient based attack and improve their attack transferability|black-box|
 | | | | |
-
 
 
 ### 2020
