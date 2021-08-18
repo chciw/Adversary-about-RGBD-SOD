@@ -94,7 +94,7 @@ rosa,...
 |Single-Step Adversarial Training With Dropout Scheduling|CVPR|add dropout to single-step Adv.Train|
 |Adversarial Vertex Mixup: Toward Better Adversarially Robust Generalization|CVPR|train&test set accuracy gap for Adv.Train|
 |**On the Robustness of Semantic Segmentation Models to Adversarial Attacks** |**TPAMI** |**first rigorous evaluation**  |
-|**Dynamic Divide-and-Conquer Adversarial Training for Robust Semantic Segmentation**|preprint|add branches to deal with pixels with diverse properties towards adv. perturbation for Adv. Train|
+|**Dynamic Divide-and-Conquer Adversarial Training for Robust Semantic Segmentation**<br>[https://github.com/dvlab-research/Robust-Semantic-Segmentation](https://github.com/dvlab-research/Robust-Semantic-Segmentation)|preprint|add branches to deal with pixels with diverse properties towards adv. perturbation for Adv. Train|
 |**Indirect Local Attacks for Context-Aware Semantic Segmentation Networks**|ECCV|train model  using Mahalanobis distance and inter. feature to  detect|
 |**ROSA: Robust Salient Object Detection Against Adversarial Attacks<br>[https://github.com/lhaof/ROSA-Robust-Salient-Object-Detection-Against-Adversarial-Attacks](https://github.com/lhaof/ROSA-Robust-Salient-Object-Detection-Against-Adversarial-Attacks)** |**IEEE Transactions on Cybernetics** |**introduce new generic noise to destroy adv. perturbations, learn to predict with introduced noise** |
 
