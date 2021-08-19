@@ -8,13 +8,17 @@ from __future__ import division
 from __future__ import print_function
 import tensorflow as tf
 import numpy as np
-import njud_input
+import nju2000_input
 from keras import backend as K
 from PIL import Image
 import cv2
+from tensorflow.python.keras.backend import set_session
+
+sess = tf.Session()
+graph = tf.get_default_graph()
 
 class LinfPGDAttack:
-  def __init__(self, model, epsilon, num_steps, step_size, random_start, loss_func):
+  def __init__(self, model, epsilon, num_steps, step_size, random_start):
     """Attack parameter initialization. The attack performs k steps of
        size a, while always staying within epsilon from the initial
        point."""
@@ -30,6 +34,8 @@ class LinfPGDAttack:
                         model.targets[0], # 输入的标签，是numpy数组
                         K.learning_phase(), # 默认为0，表示test
                     ]
+    grad = K.gradients(model.total_loss, model.inputs)
+    self.get_gradients = K.function(inputs=self.input_tensors, outputs=grad)
     # if loss_func == 'xent':
     #   loss = model.xent
     # elif loss_func == 'cw':
@@ -44,10 +50,7 @@ class LinfPGDAttack:
     # else:
     #   print('Unknown loss function. Defaulting to cross-entropy')
 
-    grad = K.gradients(model.total_loss, model.inputs)
-    self.get_gradients = K.function(inputs=self.input_tensors, outputs=grad)
-
-  def perturb(self, x_nat,d_nat,y, sess):
+  def perturb(self, x_nat,d_nat,y):
     """Given a set of examples (x_nat, y), returns a set of adversarial
        examples within epsilon of x_nat in l_infinity norm."""
     if self.rand:
@@ -62,6 +65,11 @@ class LinfPGDAttack:
     for i in range(self.num_steps):
       # grad = sess.run(self.grad, feed_dict={self.model.x_input: x,
       #                                       self.model.y_input: y})
+      global sess
+      global graph
+      with graph.as_default():
+        set_session(sess)
+
       grad=self.get_gradients([x,d,np.ones(1), y, 0 ])
       x = np.add(x, self.step_size * np.sign(grad[0]), out=x, casting='unsafe')
       x = np.clip(x, x_nat - self.epsilon, x_nat + self.epsilon)
@@ -79,64 +87,60 @@ if __name__ == '__main__':
   import math
   from model import vgg16_deep_fuse_model
 
+
   with open('config.json') as config_file:
     config = json.load(config_file)
-
   # model_file = tf.train.latest_checkpoint(config['model_dir'])
   # if model_file is None:
   #   print('No model found')
   #   sys.exit()
 
-  model = vgg16_deep_fuse_model(img_width=256,img_height=256)
-  root='/home/jackice/PycharmProjects/pythonProject1'
-
+  root = 'D:/PycharmProject/PDNet_available'
+  model = vgg16_deep_fuse_model(img_width=224,img_height=224)
+  set_session(sess)
+  model.load_weights(root + '/checkpoints/vgg16_deep_fuse_512.0.323.hdf5', by_name=True)
   attack = LinfPGDAttack(model,
                          config['epsilon'],
                          config['num_steps'],
                          config['step_size'],
-                         config['random_start'],
-                         config['loss_func'])
+                         config['random_start'])
   saver = tf.train.Saver()
+  nju2k = nju2000_input.nju2000Data()
 
-  data_path = config['data_path']
-  cifar = njud_input.NJUDData(data_path)
-
-  with tf.Session() as sess:
+  # with tf.Session() as sess:
     # Restore the checkpoint
     # saver.restore(sess, model_file)
-    model.load_weights(root + '/checkpoints/vgg16_deep_fuse_512.0.323.hdf5', by_name=True)
 
     # Iterate over the samples batch-by-batch
-    num_eval_examples = config['num_eval_examples']
-    eval_batch_size = config['eval_batch_size']
-    num_batches = int(math.ceil(num_eval_examples / eval_batch_size))
+  num_eval_examples = config['num_eval_examples']
+  eval_batch_size = config['eval_batch_size']
+  num_batches = int(math.ceil(num_eval_examples / eval_batch_size))
 
-    x_adv = [] # adv accumulator
-    d_adv=[]
+  x_adv = [] # adv accumulator
+  d_adv=[]
+  print('Iterating over {} batches'.format(num_batches))
 
-    print('Iterating over {} batches'.format(num_batches))
+  for ibatch in range(num_batches):
+    bstart = ibatch * eval_batch_size
+    bend = min(bstart + eval_batch_size, num_eval_examples)
+    print('batch {} size: {}'.format(ibatch,bend - bstart))
 
-    for ibatch in range(num_batches):
-      bstart = ibatch * eval_batch_size
-      bend = min(bstart + eval_batch_size, num_eval_examples)
-      print('batch {} size: {}'.format(ibatch,bend - bstart))
+    x_batch = nju2k.eval_data.xs[bstart:bend, :]
+    d_batch = nju2k.eval_data.ds[bstart:bend]
+    y_batch = nju2k.eval_data.ys[bstart:bend]
+    n_batch = nju2k.eval_data.names[bstart:bend]
 
-      x_batch = cifar.eval_data.xs[bstart:bend, :]
-      d_batch = cifar.eval_data.ds[bstart:bend]
-      y_batch = cifar.eval_data.ys[bstart:bend]
-      n_batch = cifar.eval_data.names[bstart:bend]
+    x_batch_adv,d_batch_adv = attack.perturb(x_batch,d_batch,y_batch)
+    for i in range(4):
+      cv2.imwrite('./advx/'+n_batch[i]+'.png',x_batch_adv[i,:,:,:])
+      cv2.imwrite('./advd/' + n_batch[i] + '.png', d_batch_adv[i, :, :, :])
+    x_adv.append(x_batch_adv)
+    d_adv.append(d_batch_adv)
 
-      x_batch_adv,d_batch_adv = attack.perturb(x_batch,d_batch,y_batch, sess)
-      for i in range(4):
-        cv2.imwrite('./imgs/'+n_batch[i]+'.png',x_batch_adv[i,:,:,:])
-        cv2.imwrite('./deep/' + n_batch[i] + '.png', d_batch_adv[i, :, :, :])
-      x_adv.append(x_batch_adv)
-      d_adv.append(d_batch_adv)
-
-    # print('Storing examples')
-    # path = config['store_adv_path']
-    # x_adv = np.concatenate(x_adv, axis=0)
-    # np.save(path+'pgdx.npy', x_adv)
-    # d_adv = np.concatenate(d_adv, axis=0)
-    # np.save(path+'pgdd.npy', d_adv)
-    # print('Examples stored in {}'.format(path))
+  print('Storing examples')
+  path = config['store_adv_path']
+  x_adv = np.concatenate(x_adv, axis=0)
+  np.save(path+'pgdx.npy', x_adv)
+  d_adv = np.concatenate(d_adv, axis=0)
+  np.save(path+'pgdd.npy', d_adv)
+  print('Examples stored in {}'.format(path))
