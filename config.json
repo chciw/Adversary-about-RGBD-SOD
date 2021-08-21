@@ -1,0 +1,31 @@
+{
+  "_comment": "===== MODEL CONFIGURATION =====",
+  "model_dir": "./models/",
+
+  "_comment": "===== DATASET CONFIGURATION =====",
+  "data_path": "cifar10_data",
+
+  "_comment": "===== TRAINING CONFIGURATION =====",
+  "tf_random_seed": 451760341,
+  "np_random_seed": 216105420,
+  "max_num_training_steps": 10,
+  "num_output_steps": 1,
+  "num_summary_steps": 2,
+  "num_checkpoint_steps": 5,
+  "training_batch_size": 2,
+  "step_size_schedule": [[0, 0.0002], [100, 0.0001]],
+  "weight_decay": 0.0002,
+  "momentum": 0.9,
+
+  "_comment": "===== EVAL CONFIGURATION =====",
+  "num_eval_examples": 983,
+  "eval_batch_size": 2,
+  "eval_on_cpu": false,
+
+  "_comment": "=====ADVERSARIAL EXAMPLES CONFIGURATION=====",
+  "epsilon": 10.0,
+  "num_steps": 5,
+  "step_size": 2,
+  "random_start": true,
+  "store_adv_path": "./"
+}
