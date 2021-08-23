@@ -26,7 +26,7 @@ rosa在每一步用(1-实际概率)对应的梯度-(实际概率)对应梯度。
 |---|---|---|---|
 |**Adversarial Attack Against Deep Saliency Models Powered by Non-Redundant Priors**|TIP|punish feature activations corresponding to the salient regions;directional gradient estimation|partially white-box & black-box|
 |Enhancing the transferability of adversarial attacks through variance tuning<br>[https://github.com/JHL-HUST/VT](https://github.com/JHL-HUST/VT)|CVPR|consider the gradient variance of the previous iteration to tune the current gradient to enhance iterative gradient based attack and improve their attack transferability|black-box|
-| | | | |
+|Fashion-Guided Adversarial Attack on Person Segmentation[https://github.com/nii-yamagishilab/fashion_adv](https://github.com/nii-yamagishilab/fashion_adv)|CVPR workshop|detects and attacks the clothing regions by synthesizing adversarial textures from guided-fashion style images to make persons invisible|black-box|
 
 
 ### 2020
