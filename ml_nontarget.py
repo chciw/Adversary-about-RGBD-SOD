@@ -82,8 +82,8 @@ for root, dirs, files in os.walk(rootdir+'Data/Img/'):
                     print('iter:%d' % itr )
                     d_rgb,d_deep=getG(img,deep)
 
-                    img=img-step_size*np.sign(d_rgb)
-                    deep=deep-np.sign(d_deep)*step_size
+                    img=img+step_size*np.sign(d_rgb)
+                    deep=deep+np.sign(d_deep)*step_size
                     img[img>1]=1
                     img[img<0]=0
                     deep[deep<0]=0
